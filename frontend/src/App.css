@@ -87,3 +87,9 @@ body {
 .aaa {
   background-color: #5f937c;
 }
+
+.score {
+  text-align: center;
+  font-size: 25px;
+  color: white;
+}

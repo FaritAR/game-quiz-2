@@ -33,6 +33,7 @@ function App(): JSX.Element {
   const [questions, setQuestions] = React.useState<Data>([[]]);
   const [open, setOpen] = React.useState(false);
   const [input, setInput] = React.useState('');
+  const [score, setScore] = React.useState(0);
   const [win, setWin] = React.useState('');
   const [current, setCurrent] = React.useState<Question | null>(null);
 
@@ -58,6 +59,7 @@ function App(): JSX.Element {
     event.preventDefault();
     if (q.answer.toLowerCase() === input.toLowerCase()) {
       console.log('win');
+      setScore((preScore) => preScore + q.price);
       setWin('Win');
     } else {
       setWin('Lose');
@@ -75,6 +77,7 @@ function App(): JSX.Element {
   return (
     <>
       {' '}
+      <div className="score"> Твое Очк0: {score}</div>
       <div className="game_container">
         <div className="titles">
           <div> Кино по смайликам</div>
