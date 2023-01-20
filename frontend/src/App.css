@@ -14,7 +14,7 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  /* background-color: #282c34; */
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -35,4 +35,55 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.game_container {
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+}
+
+body {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  background-color: #5f937c;
+  /* background: rgb(63, 94, 251);
+  background: radial-gradient(
+    circle,
+    rgba(63, 94, 251, 1) 0%,
+    rgba(35, 0, 255, 1) 39%
+  ); */
+}
+
+.questions {
+  width: 100vw;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+}
+.titles {
+  text-align: left;
+  font-size: 30px;
+  color: #ddd5c2;
+  display: grid;
+  /* grid-template-columns: repeat(5, 1fr); */
+  grid-template-rows: repeat(5, 1fr);
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+}
+.titles > * {
+  border: solid;
+}
+
+.btn-score {
+  border: solid;
+  text-align: center;
+
+  font-size: 35px;
+  color: #ddd5c2;
+}
+
+.aaa {
+  background-color: #5f937c;
 }
