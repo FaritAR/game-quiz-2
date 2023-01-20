@@ -32,7 +32,9 @@ type Question = {
 function App(): JSX.Element {
   const [questions, setQuestions] = React.useState<Data>([[]]);
   const [open, setOpen] = React.useState(false);
-  const [current, setCurrent] = React.useState('');
+  const [input, setInput] = React.useState('');
+  const [win, setWin] = React.useState('');
+  const [current, setCurrent] = React.useState<Question | null>(null);
 
   useEffect(() => {
     async function questionsData(): Promise<void> {
@@ -46,12 +48,29 @@ function App(): JSX.Element {
     questionsData();
   }, []);
 
-  function check(answer) {}
   const handleOpen = (question: any): void => {
     setCurrent(question);
+
     setOpen(true);
   };
-  const handleClose = (): void => setOpen(false);
+
+  const handleSubmit = (event: React.FormEvent, q: Question): void => {
+    event.preventDefault();
+    if (q.answer.toLowerCase() === input.toLowerCase()) {
+      console.log('win');
+      setWin('Win');
+    } else {
+      setWin('Lose');
+      console.log('lose');
+    }
+    // console.log(q.answer, input);
+  };
+
+  const handleClose = (): void => {
+    setOpen(false);
+    setWin('');
+    setInput('');
+  };
 
   return (
     <>
@@ -76,32 +95,41 @@ function App(): JSX.Element {
                   >
                     {question.price}
                   </div>
-                  <Modal
-                    open={open}
-                    onClose={handleClose}
-                    aria-labelledby="modal-modal-title"
-                    aria-describedby="modal-modal-description"
-                  >
-                    <Box sx={style} className="aaa">
-                      <Typography
-                        id="modal-modal-title"
-                        variant="h6"
-                        component="h2"
-                      >
-                        {current.name_theme} за {current.price}
-                      </Typography>
-                      <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                        {current.question}
-                        <div>
-                          <input></input>
-                          <Button onClick={(): void => check(current.answer)}>
-                            {' '}
-                            ответить
-                          </Button>
-                        </div>
-                      </Typography>
-                    </Box>
-                  </Modal>
+                  {current && (
+                    <Modal
+                      open={open}
+                      onClose={handleClose}
+                      aria-labelledby="modal-modal-title"
+                      aria-describedby="modal-modal-description"
+                    >
+                      <Box sx={style} className="aaa">
+                        <Typography
+                          id="modal-modal-title"
+                          variant="h6"
+                          component="h2"
+                        >
+                          {current.name_theme} за {current.price}
+                        </Typography>
+                        <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                          {current.question}
+                          <form
+                            onSubmit={(event: React.FormEvent): void =>
+                              handleSubmit(event, current)
+                            }
+                          >
+                            <input
+                              type="text"
+                              value={input}
+                              onChange={(
+                                event: React.ChangeEvent<HTMLInputElement>
+                              ): void => setInput(event.target.value)}
+                            ></input>
+                            <button type="submit"> ответить</button> {win}
+                          </form>
+                        </Typography>
+                      </Box>
+                    </Modal>
+                  )}
                 </>
               );
             });
