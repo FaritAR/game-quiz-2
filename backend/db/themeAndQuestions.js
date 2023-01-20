@@ -2,7 +2,7 @@ const themeAndQuestions = [
   [
     {
       id: 1,
-      question: '🌍🐒',
+      question: '\ud83c\udf0d\ud83d\udc12',
       answer: 'Планета обезьян',
       id_theme: 1,
       price: 100,

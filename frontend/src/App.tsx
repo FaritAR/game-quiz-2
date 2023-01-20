@@ -7,20 +7,11 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
+import Quest from './Question';
 
-const style = {
-  position: 'absolute' as 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 400,
-  border: '2px solid #000',
-  boxShadow: 24,
-  p: 4,
-};
-type Data = [Question[]];
+export type Data = [Question[]];
 
-type Question = {
+export type Question = {
   id: number;
   question: string;
   answer: string;
@@ -31,8 +22,6 @@ type Question = {
 
 function App(): JSX.Element {
   const [questions, setQuestions] = React.useState<Data>([[]]);
-  const [open, setOpen] = React.useState(false);
-  const [current, setCurrent] = React.useState('');
 
   useEffect(() => {
     async function questionsData(): Promise<void> {
@@ -45,13 +34,6 @@ function App(): JSX.Element {
 
     questionsData();
   }, []);
-
-  function check(answer) {}
-  const handleOpen = (question: any): void => {
-    setCurrent(question);
-    setOpen(true);
-  };
-  const handleClose = (): void => setOpen(false);
 
   return (
     <>
@@ -68,42 +50,7 @@ function App(): JSX.Element {
         <div className="questions">
           {questions.map((el) => {
             return el.map((question) => {
-              return (
-                <>
-                  <div
-                    className="btn-score"
-                    onClick={(): void => handleOpen(question)}
-                  >
-                    {question.price}
-                  </div>
-                  <Modal
-                    open={open}
-                    onClose={handleClose}
-                    aria-labelledby="modal-modal-title"
-                    aria-describedby="modal-modal-description"
-                  >
-                    <Box sx={style} className="aaa">
-                      <Typography
-                        id="modal-modal-title"
-                        variant="h6"
-                        component="h2"
-                      >
-                        {current.name_theme} за {current.price}
-                      </Typography>
-                      <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                        {current.question}
-                        <div>
-                          <input></input>
-                          <Button onClick={(): void => check(current.answer)}>
-                            {' '}
-                            ответить
-                          </Button>
-                        </div>
-                      </Typography>
-                    </Box>
-                  </Modal>
-                </>
-              );
+              return <Quest question={question} key={question.id} />;
             });
           })}
         </div>
